@@ -65,6 +65,7 @@ Pattern found at position: 10
 Pattern found at position: 18  
 
 Main String = ABAAABCDBBABCDDEBCABC
+pattern = ABC
 Z-Array = 01110000020000000200
 Z[4] = ABCDBBABCDDEBCABC
 z[10] = ABCDDEBCABC
