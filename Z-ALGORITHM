@@ -1,0 +1,73 @@
+public class ZAlgorithm { 
+  public static void fillZArray(String conStr, int[] zArr) {  
+    int n = conStr.length();  
+      int windLeft, windRight, k;  
+      windLeft = windRight = 0;  
+
+      for (int i = 1; i < n; i++) {  
+        if (i > windRight) {  
+          windLeft = windRight = i;  
+          while (windRight < n && conStr.charAt(windRight - windLeft) == conStr.charAt(windRight)) {  
+            windRight++;  
+          }  
+
+          zArr[i] = windRight - windLeft;  
+          windRight--;  
+        } else { 
+          k = i - windLeft; 
+          if (zArr[k] < windRight - i + 1)  
+            zArr[i] = zArr[k];  
+          else {  
+            windLeft = i;  
+            while (windRight < n && conStr.charAt(windRight - windLeft) == conStr.charAt(windRight)) {  
+              windRight++;  
+            }  
+            zArr[i] = windRight - windLeft;  
+            windRight--;  
+          } 
+        }  
+      }  
+    }  
+    
+    public static void zAlgorithm(String mainString, String pattern, int[] array) {  
+ 
+      String concatedStr = pattern + "$" + mainString;  
+      int patLen = pattern.length(); 
+      int len = concatedStr.length();  
+      
+      int[] zArr = new int[len];  
+      fillZArray(concatedStr, zArr);  
+      int index = -1; 
+      for (int i = 0; i < len; i++) {  
+        if (zArr[i] == patLen) {  
+          index++;  
+          array[index] = i - patLen - 1; 
+        }  
+      }  
+
+      for (int i = 0; i <= index; i++) {  
+        System.out.println("Pattern found at position: " + array[i]);  
+      }  
+    }  
+  public static void main(String[] args) {  
+    String mainString = "ABAAABCDBBABCDDEBCABC";  
+    String pattern = "ABC";  
+
+int[] locArray = new int[mainString.length()];  
+                zAlgorithm(mainString, pattern, locArray);  
+  } 
+} 
+
+/*
+Output: 
+Pattern found at position: 4  
+Pattern found at position: 10 
+Pattern found at position: 18  
+
+Main String = ABAAABCDBBABCDDEBCABC
+Z-Array = 01110000020000000200
+Z[4] = ABCDBBABCDDEBCABC
+z[10] = ABCDDEBCABC
+z[18] = ABC
+
+*/
